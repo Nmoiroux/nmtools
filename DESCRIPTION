@@ -1,6 +1,6 @@
 Package: nmtools
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Toolbox with varied function to manipulate environmental data
 Version: 0.1.0
 Authors@R: c(
     person(
@@ -9,8 +9,7 @@ Authors@R: c(
       role = c("aut", "cre")
     )
   )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
+Description: The box includes a function to interpolate missing data in METAR (meteorological data from airport stations) time series and a set of functions to query and download ephemeris for the Sun and Moon using the NASA JPL Horizons API and to calculate ground-based illuminance.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
