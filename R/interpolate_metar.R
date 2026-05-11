@@ -6,6 +6,8 @@
 #'
 #' @param df A `data.frame` containing METAR data. It must include a column named `METAR_Date` (POSIXct or coercible)
 #'          and numeric columns to interpolate (e.g., Wind_speed, Temperature).
+#' @param date_col A character string specifying the name of date column (POSIXct or coercible).
+#' @param interp_cols A character vector specifying the names of numeric columns to interpolate.
 #' @param time_interval A character string specifying the time step for interpolation (default is `"1 hour"`).
 #'                      Passed to `seq.POSIXt(by = time_interval)`.
 #'
@@ -31,7 +33,7 @@
 #' }
 #'
 #' @export
-interpolate_metar <- function(df, time_interval = "1 hour") {
+interpolate_metar <- function(df, datecol, interp_cols, time_interval = "1 hour") {
 
   # Ensure date column is POSIXct and dataframe is in date order
   df <- df %>%
