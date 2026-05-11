@@ -1,12 +1,11 @@
 #' Interpolate Missing Hourly METAR Data
 #'
-#' This function fills missing time-stamped rows in a METAR dataset and linearly interpolates numeric weather variables
+#' This function fills missing time-stamped rows in a METAR or other dataset and linearly interpolates numeric weather variables
 #' (e.g., wind speed, temperature, pressure) based on adjacent observations. It is useful for reconstructing hourly
 #' time series when some observations are missing.
 #'
 #' @param df A `data.frame` containing METAR data. It must include a column named `METAR_Date` (POSIXct or coercible)
 #'          and numeric columns to interpolate (e.g., Wind_speed, Temperature).
-#' @param date_col A character string specifying the name of date column (POSIXct or coercible).
 #' @param interp_cols A character vector specifying the names of numeric columns to interpolate.
 #' @param time_interval A character string specifying the time step for interpolation (default is `"1 hour"`).
 #'                      Passed to `seq.POSIXt(by = time_interval)`.
@@ -21,6 +20,7 @@
 #'
 #' @examples
 #' \dontrun{
+#' library(pmetar)
 #' Metar <- metar_get_historical(
 #' airport = "DFOO",
 #' start_date = "2018-11-01",
@@ -31,9 +31,10 @@
 #' # Check interpolated rows
 #' interpolated_data %>% filter(Remark == "These data were interpolated")
 #' }
-#'
+#' @importFrom zoo na.approx
+#' @import dplyr
 #' @export
-interpolate_metar <- function(df, datecol, interp_cols, time_interval = "1 hour") {
+interpolate_metar <- function(df, interp_cols, time_interval = "1 hour") {
 
   # Ensure date column is POSIXct and dataframe is in date order
   df <- df %>%
@@ -54,7 +55,7 @@ interpolate_metar <- function(df, datecol, interp_cols, time_interval = "1 hour"
   # Interpolate numeric variables
   df_complete_interp <- df_complete %>%
     arrange(METAR_Date) %>%
-    mutate(across(all_of(vars_to_interp), ~ zoo::na.approx(., x = METAR_Date, na.rm = FALSE)))
+    mutate(across(all_of(vars_to_interp), ~ na.approx(.data, x = METAR_Date, na.rm = FALSE)))
 
   # Add flag for interpolated rows
   df_complete_interp <- df_complete_interp %>%

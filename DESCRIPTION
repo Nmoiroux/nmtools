@@ -1,16 +1,26 @@
-Package: nmtools
 Type: Package
-Title: Toolbox with varied function to manipulate environmental data
+Package: nmtools
+Title: NM Personal Toolbox With Varied Function
 Version: 0.1.0
-Authors@R: c(
-    person(
-      "Jane", "Doe",
-      email = "jane@example.com",
-      role = c("aut", "cre")
-    )
-  )
-Description: The box includes a function to interpolate missing data in METAR (meteorological data from airport stations) time series and a set of functions to query and download ephemeris for the Sun and Moon using the NASA JPL Horizons API and to calculate ground-based illuminance.
-License: What license is it under?
+Authors@R: 
+    person("Nicolas", "Moiroux", , "nicolas.moiroux@ird.fr", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-6755-6167"))
+Description: The box includes a function to calculate Fisher's alpha diversity index with minimum data, 
+    a function to interpolate missing data in
+    METAR (meteorological data from airport stations) time series and a
+    set of functions to query and download ephemeris for the Sun and Moon
+    using the NASA JPL Horizons API and to calculate ground-based
+    illuminance.
+License: AGPL (>= 3)
+Imports: 
+    dplyr,
+    httr,
+    lubridate,
+    stats,
+    tidyr,
+    utils,
+    zoo
+Suggest: pmetar
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.3

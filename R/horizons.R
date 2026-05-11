@@ -15,6 +15,8 @@
 #' @param refracted Logical, whether to request refracted apparent coordinates of the target, default to TRUE
 #'
 #' @return Character string containing the Horizons text output
+#' @importFrom httr GET stop_for_status content
+#' @importFrom utils read.csv
 #' @export
 horizons_query <- function(
     target = "301",
@@ -50,11 +52,11 @@ horizons_query <- function(
     OBJ_DATA     = "'NO'"
   )
 
-  response <- httr::GET(base_url, query = params)
+  response <- GET(base_url, query = params)
 
-  httr::stop_for_status(response)
+  stop_for_status(response)
 
-  txt <- httr::content(response, as = "text", encoding = "UTF-8")
+  txt <- content(response, as = "text", encoding = "UTF-8")
 
   return(txt)
 }
@@ -87,7 +89,7 @@ horizons_parse_ephemeris <- function(txt) {
   }
 
   # Read CSV safely
-  df <- utils::read.csv(
+  df <- read.csv(
     text = paste(data_lines, collapse = "\n"),
     header=TRUE,
     stringsAsFactors = FALSE,

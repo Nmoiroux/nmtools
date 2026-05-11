@@ -29,6 +29,8 @@
 #' in a random sample of an animal population.
 #' Journal of Animal Ecology, 12(1), 42–58.
 #'
+#' @importFrom stats optimize
+#'
 #' @examples
 #' fisher_alpha(S = 10, N = 100)
 #'

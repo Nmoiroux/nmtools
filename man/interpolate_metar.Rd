@@ -4,7 +4,7 @@
 \alias{interpolate_metar}
 \title{Interpolate Missing Hourly METAR Data}
 \usage{
-interpolate_metar(df, datecol, interp_cols, time_interval = "1 hour")
+interpolate_metar(df, interp_cols, time_interval = "1 hour")
 }
 \arguments{
 \item{df}{A `data.frame` containing METAR data. It must include a column named `METAR_Date` (POSIXct or coercible)
@@ -14,8 +14,6 @@ and numeric columns to interpolate (e.g., Wind_speed, Temperature).}
 
 \item{time_interval}{A character string specifying the time step for interpolation (default is `"1 hour"`).
 Passed to `seq.POSIXt(by = time_interval)`.}
-
-\item{date_col}{A character string specifying the name of date column (POSIXct or coercible).}
 }
 \value{
 A `data.frame` with missing timestamps filled and numeric variables interpolated.
@@ -38,5 +36,4 @@ interpolated_data <- interpolate_metar(Metar)
 # Check interpolated rows
 interpolated_data \%>\% filter(Remark == "These data were interpolated")
 }
-
 }
